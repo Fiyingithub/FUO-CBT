@@ -1,13 +1,19 @@
-// import React from 'react'
+import { Route, Routes } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import SignUp from "./pages/Auth/Admin/SignUp";
+import AdminLogin from "./pages/Auth/Admin/AdminLogin";
 
-import AllRoutes from "./routes/AllRoutes"
 
 const App = () => {
   return (
-    <div>
-      <AllRoutes />
-    </div>
-  )
-}
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
 
-export default App
+      {/* Auth */}
+      <Route path="/adminsignup" element={<SignUp />} />
+      <Route path="/adminlogin" element={<AdminLogin />} />
+    </Routes>
+  );
+};
+
+export default App;

@@ -2,7 +2,8 @@ import type { AdminLoginData, AdminLoginResponse, AdminSignupData, AdminSignupRe
 import api from "../utils/api";
 
 
-export const AdminSignup = async ( AdminSignupPayload: AdminSignupData): Promise<AdminSignupResponse>=> {
+export const AuthServises = {
+  AdminSignup:  async ( AdminSignupPayload:Omit< AdminSignupData, 'id'>): Promise<AdminSignupResponse> => {
     try {
         const res = await api.post('/auth/admin/signup', AdminSignupPayload)
         return res.data
@@ -10,26 +11,25 @@ export const AdminSignup = async ( AdminSignupPayload: AdminSignupData): Promise
         if (error.response) {
       throw error.response.data;
     }
-    throw new Error('Something went wrong during Leccturer login.');
+    throw new Error('Something went wrong during Admin login.');
     
     }
-}
+  },
 
-export const AdminLogin = async (AdminLoginPayload: AdminLoginData): Promise<AdminLoginResponse> => {
-  try {
-    const res = await api.post('/auth/admin/login', AdminLoginPayload);
-    return res.data;
-  } catch (error: any) {
-    // Optionally throw or return a structured error
-    if (error.response) {
-      throw error.response.data;
+  AdminLogin: async (AdminLoginPayload: AdminLoginData): Promise<AdminLoginResponse> => {
+    try {
+      const res = await api.post('/auth/admin/login', AdminLoginPayload);
+      return res.data;
+    } catch (error: any) {
+      // Optionally throw or return a structured error
+      if (error.response) {
+        throw error.response.data;
+      }
+      throw new Error('Something went wrong during admin login.');
     }
-    throw new Error('Something went wrong during admin login.');
-  }
-};
+  },
 
-
-export const LecturerLogin = async (LecturerLoginPayload: LecturerLoginData): Promise<LecturerLoginResponse> =>{
+  LecturerLogin: async (LecturerLoginPayload: LecturerLoginData): Promise<LecturerLoginResponse> =>{
 
     try {
         const res = await api.post('/auth/lecturer/login', LecturerLoginPayload)
@@ -40,10 +40,9 @@ export const LecturerLogin = async (LecturerLoginPayload: LecturerLoginData): Pr
     }
     throw new Error('Something went wrong during Leccturer login.');
     }
-}
+  },
 
-export const StudentLogin = async (StudentLoginPayload: StudentLoginData): Promise<StudentLoginResponse> =>{
-
+ StudentLogin: async (StudentLoginPayload: StudentLoginData): Promise<StudentLoginResponse> =>{
     try {
         const res = await api.post('/auth/lecturer/login', StudentLoginPayload)
         return res.data
@@ -54,4 +53,6 @@ export const StudentLogin = async (StudentLoginPayload: StudentLoginData): Promi
     throw new Error('Something went wrong during Leccturer login.');
 
     }
+  }
+
 }
